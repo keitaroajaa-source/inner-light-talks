@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inner Light Talks - Duta Anti Bullying</title>
+    <style>
+        /* Desain Background & Font */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            margin: 0; padding: 20px; color: #333;
+        }
+        
+        /* Desain Kotak Utama (Form) */
+        .form-container { 
+            max-width: 650px; margin: auto; background: white; 
+            padding: 30px; border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+        }
+
+        /* Desain Judul */
+        h2 { text-align: center; color: #ff758c; margin-bottom: 5px; font-size: 28px; }
+        p.subtitle { text-align: center; color: #666; margin-top: 0; margin-bottom: 30px; font-size: 14px; }
+        h3 { color: #555; border-bottom: 2px dashed #ff758c; padding-bottom: 5px; margin-top: 30px; }
+
+        /* Desain Input & Textarea */
+        input[type="text"], input[type="number"], input[type="tel"], input[type="email"], select, textarea { 
+            width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 15px; 
+            border: 2px solid #eee; border-radius: 10px; box-sizing: border-box;
+            font-family: inherit; transition: 0.3s;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #ff758c; outline: none; background: #fffafb;
+        }
+
+        /* Desain Soal Kuis */
+        .soal-box { background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 15px; border-left: 5px solid #a8edea; }
+        .soal-box p { margin-top: 0; }
+        .soal-box label { display: block; margin: 8px 0; cursor: pointer; font-size: 14px; padding: 5px; border-radius: 5px; transition: 0.2s;}
+        .soal-box label:hover { background: #e9ecef; }
+
+        /* ================================================== */
+        /* ANIMASI GERAK-GERAK LUCU (BARU)                    */
+        /* ================================================== */
+        
+        /* 1. Animasi Bintang Goyang */
+        @keyframes goyangBintang {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(15deg) scale(1.3); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+        .animasi-bintang { display: inline-block; animation: goyangBintang 2s infinite ease-in-out; }
+
+        /* 2. Animasi Denyut Tombol Kirim */
+        @keyframes denyutTombol {
+            0% { transform: scale(1); box-shadow: 0 5px 15px rgba(255, 117, 140, 0.4); }
+            50% { transform: scale(1.03); box-shadow: 0 10px 25px rgba(255, 117, 140, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 5px 15px rgba(255, 117, 140, 0.4); }
+        }
+        
+        /* 3. Animasi Goyang Instagram saat di-hover */
+        @keyframes goyangIg {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+            75% { transform: rotate(-3deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* Desain Tombol Submit */
+        button { 
+            background: linear-gradient(to right, #ff758c, #ff7eb3); 
+            color: white; padding: 15px 20px; border: none; 
+            border-radius: 10px; cursor: pointer; width: 100%; 
+            font-size: 16px; font-weight: bold; transition: transform 0.2s;
+            margin-top: 20px;
+            animation: denyutTombol 2s infinite; /* Efek denyut aktif */
+        }
+        button:hover { transform: scale(1.05); animation: none; }
+
+        /* Fitur Lucu (Deteksi Emosi) */
+        #pesan-semangat { 
+            display: none; background: #ffe4e1; color: #d05363; 
+            padding: 10px; border-radius: 8px; font-size: 13px; font-style: italic; margin-top: -5px; margin-bottom: 15px;
+        }
+
+        /* Desain List Akun IG */
+        .ig-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .ig-list a {
+            display: block; background: #fff0f2; color: #d05363; text-decoration: none;
+            padding: 10px; border-radius: 8px; text-align: center; font-size: 13px; font-weight: bold;
+            transition: 0.3s; border: 1px solid #ff758c;
+        }
+        .ig-list a:hover { 
+            background: #ff758c; color: white; 
+            box-shadow: 0 4px 10px rgba(255, 117, 140, 0.3); 
+            animation: goyangIg 0.3s ease-in-out; /* Efek goyang aktif */
+        }
+
+        /* Desain Pop-Up Loading & Sukses */
+        .overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+            z-index: 999; justify-content: center; align-items: center;
+        }
+        .popup-box {
+            background: white; padding: 40px 30px; border-radius: 20px;
+            text-align: center; box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            max-width: 400px; width: 80%;
+            animation: popIn 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+        .popup-box h2 { font-size: 24px; margin-bottom: 10px; }
+        .popup-box p { color: #666; font-size: 15px; margin-bottom: 20px; }
+        .popup-box button { width: auto; padding: 10px 30px; font-size: 14px; animation: none;}
+        
+        @keyframes popIn { 
+            0% { transform: scale(0.5); opacity: 0; } 
+            100% { transform: scale(1); opacity: 1; } 
+        }
+        
+        .roket { font-size: 40px; display: inline-block; animation: terbang 1s infinite alternate ease-in-out; }
+        @keyframes terbang { 
+            0% { transform: translateY(0); } 
+            100% { transform: translateY(-15px); } 
+        }
+    </style>
+</head>
+<body>
+
+<!-- OVERLAY POP-UP -->
+<div id="overlay" class="overlay">
+    <div class="popup-box" id="loading-box">
+        <div class="roket">🚀</div>
+        <h2>Tunggu bentar ya...</h2>
+        <p>Lagi ngirim data dan jawaban tes kamu ke sistem kami nih!</p>
+    </div>
+    
+    <div class="popup-box" id="success-box" style="display: none;">
+        <div style="font-size: 45px; margin-bottom: 10px;">🎉💖</div>
+        <h2>Yeay, Berhasil!</h2>
+        <p>Terima kasih ya udah bercerita dan bergabung jadi bagian dari Inner Light Talks. Kamu luar biasa!</p>
+        <button onclick="tutupPopup()">Kembali</button>
+    </div>
+</div>
+
+<div class="form-container">
+    <!-- Judul Ditambah Efek Bintang Animasi -->
+    <h2><span class="animasi-bintang">✨</span> Inner Light Talks <span class="animasi-bintang">✨</span></h2>
+    <p class="subtitle">Ruang Amanmu Bersama Duta Anti Bullying</p>
+    
+    <form id="myForm">
+        
+        <h3>👤 Tahap 1: Kenalan Dulu Yuk!</h3>
+        
+        <label>Nama Lengkap:</label>
+        <input type="text" name="Nama_Lengkap" placeholder="Ketik namamu di sini..." required>
+
+        <label>Jenis Kelamin:</label>
+        <select name="Jenis_Kelamin" required>
+            <option value="">-- Pilih --</option>
+            <option value="Laki-laki">Laki-laki</option>
+            <option value="Perempuan">Perempuan</option>
+        </select>
+
+        <div style="display: flex; gap: 15px;">
+            <div style="width: 50%;">
+                <label>Usia:</label>
+                <input type="number" name="Usia" placeholder="Contoh: 16" required>
+            </div>
+            <div style="width: 50%;">
+                <label>No. WhatsApp:</label>
+                <input type="tel" name="No_WhatsApp" placeholder="08..." required>
+            </div>
+        </div>
+
+        <label>Email Aktif:</label>
+        <input type="email" name="Email" placeholder="contoh@gmail.com" required>
+
+        <label>Provinsi:</label>
+        <input type="text" name="Provinsi" placeholder="Contoh: Riau" required>
+
+        <label>Kota/Kabupaten:</label>
+        <input type="text" name="Kota_Kabupaten" placeholder="Contoh: Pekanbaru" required>
+
+        <label>Asal Sekolah/Kampus/Instansi:</label>
+        <input type="text" name="Asal_Instansi" placeholder="Tempat belajarmu saat ini..." required>
+
+        <h3>🧠 Tahap 2: Mini Test Anti-Bullying</h3>
+        <p style="font-size: 13px; color: #777;">Pilih jawaban yang paling tepat ya! Nilai akan dihitung otomatis (Maksimal 100 Poin).</p>
+        
+        <input type="hidden" name="Skor_Test" id="Skor_Test" value="0">
+
+        <!-- SOAL 1 -->
+        <div class="soal-box">
+            <p><strong>1. Apa yang harus kamu lakukan jika melihat teman di-bully?</strong></p>
+            <label><input type="radio" name="q1" value="0" required> Ikut-ikutan ketawa biar gak dimusuhi</label>
+            <label><input type="radio" name="q1" value="10"> Lapor ke guru atau bantu teman tersebut</label>
+            <label><input type="radio" name="q1" value="0"> Pura-pura nggak lihat aja</label>
+        </div>
+
+        <!-- SOAL 2 -->
+        <div class="soal-box">
+            <p><strong>2. Apakah body shaming (mengejek fisik) termasuk bullying?</strong></p>
+            <label><input type="radio" name="q2" value="0" required> Bukan, itu kan cuma bercanda</label>
+            <label><input type="radio" name="q2" value="0"> Ya, tapi cuma kalau korbannya sampai menangis</label>
+            <label><input type="radio" name="q2" value="10"> Ya, karena menyerang fisik dan membuat insecure</label>
+        </div>
+
+        <!-- SOAL 3 -->
+        <div class="soal-box">
+            <p><strong>3. Bercanda dengan teman itu wajar, TAPI candaan berubah menjadi bullying ketika...</strong></p>
+            <label><input type="radio" name="q3" value="10" required> Dilakukan berulang kali dan ada pihak yang merasa tersakiti</label>
+            <label><input type="radio" name="q3" value="0"> Dilakukan di depan banyak orang di kantin</label>
+            <label><input type="radio" name="q3" value="0"> Temanmu membalas candaanmu</label>
+        </div>
+
+        <!-- SOAL 4 -->
+        <div class="soal-box">
+            <p><strong>4. Dalam kasus bullying, apa yang dimaksud dengan "Bystander"?</strong></p>
+            <label><input type="radio" name="q4" value="0" required> Pelaku utama bullying</label>
+            <label><input type="radio" name="q4" value="0"> Korban yang diam saja</label>
+            <label><input type="radio" name="q4" value="10"> Orang yang melihat kejadian tapi tidak ikut campur/diam saja</label>
+        </div>
+
+        <!-- SOAL 5 -->
+        <div class="soal-box">
+            <p><strong>5. Dampak bullying tidak hanya pada mental, tapi juga fisik. Contoh dampak fisiknya adalah...</strong></p>
+            <label><input type="radio" name="q5" value="0" required> Mendadak jadi malas belajar</label>
+            <label><input type="radio" name="q5" value="10"> Susah tidur, sakit kepala, atau penurunan sistem imun</label>
+            <label><input type="radio" name="q5" value="0"> Merasa jauh lebih kuat</label>
+        </div>
+
+        <!-- SOAL 6 -->
+        <div class="soal-box">
+            <p><strong>6. Kalau ada teman yang curhat ke kamu karena dia di-bully, respon terbaikmu adalah...</strong></p>
+            <label><input type="radio" name="q6" value="0" required> Menyuruhnya untuk membalas dendam</label>
+            <label><input type="radio" name="q6" value="10"> Mendengarkan dengan empati dan menemaninya melapor</label>
+            <label><input type="radio" name="q6" value="0"> Menyuruhnya jangan baperan</label>
+        </div>
+
+        <!-- SOAL 7 -->
+        <div class="soal-box">
+            <p><strong>7. Di Indonesia, pelaku Cyberbullying (bullying di media sosial) bisa dijerat hukum melalui...</strong></p>
+            <label><input type="radio" name="q7" value="10" required> UU ITE (Informasi dan Transaksi Elektronik)</label>
+            <label><input type="radio" name="q7" value="0"> UU Hak Cipta</label>
+            <label><input type="radio" name="q7" value="0"> Tidak ada hukum yang mengaturnya</label>
+        </div>
+
+        <!-- SOAL 8 -->
+        <div class="soal-box">
+            <p><strong>8. Tempat mana yang sering luput dari pengawasan dan rawan terjadi bullying di sekolah?</strong></p>
+            <label><input type="radio" name="q8" value="0" required> Ruang Kepala Sekolah</label>
+            <label><input type="radio" name="q8" value="10"> Toilet, lorong sepi, atau grup chat angkatan</label>
+            <label><input type="radio" name="q8" value="0"> Di depan kelas saat guru sedang mengajar</label>
+        </div>
+
+        <!-- SOAL 9 -->
+        <div class="soal-box">
+            <p><strong>9. Menyebarkan rumor palsu atau sengaja mengucilkan teman dari pergaulan termasuk jenis bullying...</strong></p>
+            <label><input type="radio" name="q9" value="0" required> Bullying Fisik</label>
+            <label><input type="radio" name="q9" value="10"> Bullying Relasional / Sosial</label>
+            <label><input type="radio" name="q9" value="0"> Bukan bullying, itu seleksi alam</label>
+        </div>
+
+        <!-- SOAL 10 -->
+        <div class="soal-box">
+            <p><strong>10. Sikap paling keren yang bisa ditunjukkan oleh seorang pelajar untuk mencegah bullying adalah...</strong></p>
+            <label><input type="radio" name="q10" value="0" required> Ikut geng atau tongkrongan yang paling ditakuti</label>
+            <label><input type="radio" name="q10" value="10"> Berani speak up dan merangkul teman yang sendirian</label>
+            <label><input type="radio" name="q10" value="0"> Bersikap bodo amat sama urusan orang lain</label>
+        </div>
+
+        <h3>💌 Tahap 3: Ruang Cerita (Rahasia & Aman)</h3>
+        <label>Gimana perasaanmu akhir-akhir ini? Ceritain keluh kesahmu di sini yuk.</label>
+        <textarea name="Keluh_Kesah" id="cerita" rows="4" placeholder="Aku akhir-akhir ini ngerasa..." required oninput="cekEmosi()"></textarea>
+        
+        <div id="pesan-semangat">Peluk jauh buat kamu... 🫂 Kamu hebat banget udah bisa bertahan sejauh ini! ✨</div>
+
+        <h3>✅ Misi Terakhir: Dukung Gerakan Kami</h3>
+        <p style="font-size: 13px; color: #777;">Klik tombol di bawah ini dan pastikan kamu sudah follow semuanya ya! (Otomatis terbuka di tab baru agar form kamu tidak hilang)</p>
+        
+        <div class="ig-list">
+            <a href="https://www.instagram.com/dutaantibullying_nusa?igsh=MTVwMmIxMHIwcWt1cg==" target="_blank">@dutaantibullying_nusa</a>
+            <a href="https://www.instagram.com/junooo_sajjaaa?igsh=MWFmd3pua2JtOWo5cg==" target="_blank">@junooo_sajjaaa</a>
+            <a href="https://www.instagram.com/hubbatreess?igsh=aTh2NDB5ZnM2dWNw" target="_blank">@hubbatreess</a>
+            <a href="https://www.instagram.com/tia_simanjuntakk?igsh=dmc3YWM2YzEzNGM2" target="_blank">@tia_simanjuntakk</a>
+            <a href="https://www.instagram.com/nswh.mumfzyh?igsh=MWtxdm5zZGZiOWptbQ==" target="_blank">@nswh.mumfzyh</a>
+            <a href="https://www.instagram.com/putdeta78?igsh=MTI3MWw1bWxsbWI5ag%3D%3D&utm_source=qr" target="_blank">@putdeta78</a>
+            <a href="https://www.instagram.com/9.resa_eza?igsh=MXNkZ3Q5enA5eWg1bA==" target="_blank">@9.resa_eza</a>
+            <a href="https://www.instagram.com/_clxsyy.mey?igsh=MXVsMmp2eDV2em44cQ==" target="_blank">@_clxsyy.mey</a>
+            <a href="https://www.instagram.com/only.divta?igsh=cHY5aDhmcWptNWlj" target="_blank">@only.divta</a>
+        </div>
+
+        <label style="cursor: pointer; display: flex; align-items: flex-start; gap: 10px; background: #f0f8ff; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            <input type="checkbox" name="Follow_IG" value="Sudah Follow Semua" required style="width: auto; margin-top: 3px;">
+            <span style="font-size: 14px; line-height: 1.5;">Aku janji udah follow <b>semua akun IG</b> di atas dan siap jadi agen perubahan bersama kami <b>(Duta Anti Bullying Nusantara Batch/Gen ke 3)</b>! 🚀</span>
+        </label>
+
+        <button type="submit">Kirim Form & Cek Hasilnya!</button>
+    </form>
+</div>
+
+<script>
+    // 1. JANGAN LUPA: MASUKKAN URL APPS SCRIPT KAMU DI SINI
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyqNmfuBJv7xmZ847fKqfYK7TzuXYBujNr_o1U-LEipG7BEeBUKk3FJco4GXZCqL5k/exec';
+    const form = document.forms['myForm'];
+
+    form.addEventListener('submit', e => {
+        e.preventDefault(); 
+        hitungSkor();
+
+        document.getElementById('overlay').style.display = 'flex';
+        document.getElementById('loading-box').style.display = 'block';
+        document.getElementById('success-box').style.display = 'none';
+
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+                document.getElementById('loading-box').style.display = 'none';
+                document.getElementById('success-box').style.display = 'block';
+                form.reset(); 
+            })
+            .catch(error => {
+                alert('Waduh, koneksi error nih. Coba lagi ya!');
+                document.getElementById('overlay').style.display = 'none';
+            });
+    });
+
+    function hitungSkor() {
+        let totalSkor = 0;
+        for (let i = 1; i <= 10; i++) {
+            let jawaban = document.querySelector('input[name="q' + i + '"]:checked');
+            if (jawaban) {
+                totalSkor += parseInt(jawaban.value);
+            }
+        }
+        document.getElementById("Skor_Test").value = totalSkor;
+    }
+
+    function cekEmosi() {
+        let teks = document.getElementById("cerita").value.toLowerCase();
+        let pesan = document.getElementById("pesan-semangat");
+        if (teks.includes("sedih") || teks.includes("capek") || teks.includes("nyerah") || teks.includes("insecure") || teks.includes("nangis")) {
+            pesan.style.display = "block";
+        } else {
+            pesan.style.display = "none";
+        }
+    }
+
+    function tutupPopup() {
+        document.getElementById('overlay').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' }); 
+    }
+</script>
+
+</body>
+</html>
