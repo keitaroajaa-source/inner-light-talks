@@ -41,10 +41,8 @@
         .soal-box label:hover { background: #e9ecef; }
 
         /* ================================================== */
-        /* ANIMASI GERAK-GERAK LUCU (BARU)                    */
+        /* ANIMASI GERAK-GERAK LUCU                             */
         /* ================================================== */
-        
-        /* 1. Animasi Bintang Goyang */
         @keyframes goyangBintang {
             0% { transform: rotate(0deg) scale(1); }
             50% { transform: rotate(15deg) scale(1.3); }
@@ -52,14 +50,12 @@
         }
         .animasi-bintang { display: inline-block; animation: goyangBintang 2s infinite ease-in-out; }
 
-        /* 2. Animasi Denyut Tombol Kirim */
         @keyframes denyutTombol {
             0% { transform: scale(1); box-shadow: 0 5px 15px rgba(255, 117, 140, 0.4); }
             50% { transform: scale(1.03); box-shadow: 0 10px 25px rgba(255, 117, 140, 0.6); }
             100% { transform: scale(1); box-shadow: 0 5px 15px rgba(255, 117, 140, 0.4); }
         }
         
-        /* 3. Animasi Goyang Instagram saat di-hover */
         @keyframes goyangIg {
             0% { transform: rotate(0deg); }
             25% { transform: rotate(-3deg); }
@@ -75,7 +71,7 @@
             border-radius: 10px; cursor: pointer; width: 100%; 
             font-size: 16px; font-weight: bold; transition: transform 0.2s;
             margin-top: 20px;
-            animation: denyutTombol 2s infinite; /* Efek denyut aktif */
+            animation: denyutTombol 2s infinite; 
         }
         button:hover { transform: scale(1.05); animation: none; }
 
@@ -100,7 +96,7 @@
         .ig-list a:hover { 
             background: #ff758c; color: white; 
             box-shadow: 0 4px 10px rgba(255, 117, 140, 0.3); 
-            animation: goyangIg 0.3s ease-in-out; /* Efek goyang aktif */
+            animation: goyangIg 0.3s ease-in-out; 
         }
 
         /* Desain Pop-Up Loading & Sukses */
@@ -119,6 +115,15 @@
         .popup-box p { color: #666; font-size: 15px; margin-bottom: 20px; }
         .popup-box button { width: auto; padding: 10px 30px; font-size: 14px; animation: none;}
         
+        /* Tombol WA di Pop-up */
+        .wa-btn {
+            display: inline-block; background: #25D366; color: white; padding: 12px 20px; 
+            border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 15px; 
+            transition: 0.3s; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); margin-bottom: 20px;
+            animation: denyutTombol 2s infinite;
+        }
+        .wa-btn:hover { background: #1ebe57; transform: scale(1.05); animation: none;}
+
         @keyframes popIn { 
             0% { transform: scale(0.5); opacity: 0; } 
             100% { transform: scale(1); opacity: 1; } 
@@ -145,12 +150,19 @@
         <div style="font-size: 45px; margin-bottom: 10px;">🎉💖</div>
         <h2>Yeay, Berhasil!</h2>
         <p>Terima kasih ya udah bercerita dan bergabung jadi bagian dari Inner Light Talks. Kamu luar biasa!</p>
-        <button onclick="tutupPopup()">Kembali</button>
+        
+        <!-- BAGIAN TAMBAHAN GRUP WA YANG GEMES -->
+        <div style="background: #e8f5e9; padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 2px dashed #a5d6a7;">
+            <p style="margin: 0 0 15px 0; font-size: 14px; color: #2e7d32;"><b>Satu langkah lagi!</b> Yuk gabung ke grup WhatsApp kita biar kita bisa seru-seruan bareng dan nggak ketinggalan info acara! 💬✨</p>
+            <!-- GANTI LINK DI BAWAH INI DENGAN LINK GRUP WA KAMU -->
+            <a href="https://chat.whatsapp.com/Dewj8lfXvdeHvUfgwqNfUr" target="_blank" class="wa-btn">💬 Join Grup WhatsApp</a>
+        </div>
+
+        <button onclick="tutupPopup()" style="background: #eee; color: #555; box-shadow: none;">Tutup Jendela Ini</button>
     </div>
 </div>
 
 <div class="form-container">
-    <!-- Judul Ditambah Efek Bintang Animasi -->
     <h2><span class="animasi-bintang">✨</span> Inner Light Talks <span class="animasi-bintang">✨</span></h2>
     <p class="subtitle">Ruang Amanmu Bersama Duta Anti Bullying</p>
     
